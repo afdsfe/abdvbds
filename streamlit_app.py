@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 import numpy as np
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 # Function to generate random integer for credit score
 def random_credit_score():
     return random.randint(300, 850)
