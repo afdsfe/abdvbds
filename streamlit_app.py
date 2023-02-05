@@ -4,9 +4,7 @@ st.set_page_config(page_title="Automate Boring Office Tasks with ChatGPT and Pyt
                   page_icon=":robot:",
                   layout="wide")
 
-st.image("header_image.png", width=800)
-
-st.title("🤖 Automate Boring Office Tasks with ChatGPT and Python")
+st.markdown("# 🤖 Automate Boring Office Tasks with ChatGPT and Python")
 
 st.markdown("Learn how to use ChatGPT and Python to automate tasks such as distributing Excel files with Outlook, creating interactive charts from Excel, merging PDFs, and more.")
 
@@ -22,4 +20,26 @@ st.markdown("""
 <a href="https://chatgpt-static.s3.amazonaws.com/chats/qq32478.html" target="_blank" style="font-size:20px; font-weight:bold;">Write E-Mails</a>
 """, unsafe_allow_html=True)
 
-st.animation("animation.gif")
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #f2f2f2;
+    }
+    h1 {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        color: #222;
+        margin-top: 60px;
+    }
+    a {
+        font-size: 20px;
+        font-weight: bold;
+        color: #1a0dab;
+        text-decoration: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
