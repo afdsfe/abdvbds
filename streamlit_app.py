@@ -1,45 +1,76 @@
+import pandas as pd
+import random
+import numpy as np
+
+# Function to generate random integer for credit score
+def random_credit_score():
+    return random.randint(300, 850)
+
+# Function to generate random string for loan purpose
+def random_loan_purpose():
+    purposes = ['Home Improvement', 'Debt Consolidation', 'Business', 'Auto', 'Education', 'Other']
+    return random.choice(purposes)
+
+# Function to generate random integer for annual income
+def random_annual_income():
+    return random.randint(25000, 500000)
+
+# Function to generate random string for employment status
+def random_employment_status():
+    statuses = ['Employed', 'Self-Employed', 'Unemployed', 'Retired']
+    return random.choice(statuses)
+
+# Function to generate random string for loan status
+def random_loan_status():
+    statuses = ['Approved', 'Denied', 'Cancelled', 'Pending']
+    return random.choice(statuses)
+
+# Function to generate random float for loan amount
+def random_loan_amount():
+    return random.uniform(1000.0, 100000.0)
+
+# Function to generate random date for loan date
+def random_loan_date():
+    start = np.datetime64('2010-01-01')
+    end = np.datetime64('2023-01-01')
+    return np.datetime64(random.randint(start.astype(int), end.astype(int)), 'D').astype(object)
+
+# Function to generate random float for interest rate
+def random_interest_rate():
+    return random.uniform(0.05, 0.35)
+
+# Dataset - bank_risk
+credit_scores = [random_credit_score() for i in range(1000)]
+loan_purposes = [random_loan_purpose() for i in range(1000)]
+annual_incomes = [random_annual_income() for i in range(1000)]
+employment_statuses = [random_employment_status() for i in range(1000)]
+loan_statuses = [random_loan_status() for i in range(1000)]
+loan_amounts = [random_loan_amount() for i in range(1000)]
+loan_dates = [random_loan_date() for i in range(1000)]
+interest_rates = [random_interest_rate() for i in range(1000)]
+
+bank_risk = {'Credit_Score': credit_scores,
+             'Loan_Purpose': loan_purposes,
+             'Annual_Income': annual_incomes,
+             'Employment_Status': employment_statuses,
+             'Loan_Status': loan_statuses,
+             'Loan_Amount': loan_amounts,
+             'Loan_Date': loan_dates,
+             'Interest_Rate': interest_rates}
+
+df_bank_risk = pd.DataFrame(bank_risk)
+
+
 import streamlit as st
+import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Automate Boring Office Tasks with ChatGPT and Python",
-                  page_icon=":robot:",
-                  layout="wide")
+st.title("Bank Risk Dataset")
+st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
 
-st.markdown("# 🤖 Automate Boring Office Tasks with ChatGPT and Python")
+st.dataframe(df_bank_risk)
 
-st.markdown("Learn how to use ChatGPT and Python to automate tasks such as distributing Excel files with Outlook, creating interactive charts from Excel, merging PDFs, and more.")
-
-st.markdown("""
-<a href="https://chatgpt-static.s3.amazonaws.com/chats/tx61280.html" target="_blank" style="font-size:20px; font-weight:bold;">Distribute Excel Files With Outlook</a>
-<br>
-<a href="https://chatgpt-static.s3.amazonaws.com/chats/wj70814.html" target="_blank" style="font-size:20px; font-weight:bold;">Automate PowerPoint</a>
-<br>
-<a href="https://chatgpt-static.s3.amazonaws.com/chats/ln81825.html" target="_blank" style="font-size:20px; font-weight:bold;">Create Interactive Charts From Excel</a>
-<br>
-<a href="https://chatgpt-static.s3.amazonaws.com/chats/uf98915.html" target="_blank" style="font-size:20px; font-weight:bold;">Merge PDFs</a>
-<br>
-<a href="https://chatgpt-static.s3.amazonaws.com/chats/qq32478.html" target="_blank" style="font-size:20px; font-weight:bold;">Write E-Mails</a>
-""", unsafe_allow_html=True)
-
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #f2f2f2;
-    }
-    h1 {
-        font-size: 36px;
-        font-weight: bold;
-        text-align: center;
-        color: #222;
-        margin-top: 60px;
-    }
-    a {
-        font-size: 20px;
-        font-weight: bold;
-        color: #1a0dab;
-        text-decoration: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
+    plt.scatter(df_bank_risk['Interest_Rate'], df_bank_risk['Credit_Score'])
+    plt.xlabel("Interest_Rate")
+    plt.ylabel("Credit_Score")
+    st.pyplot()
