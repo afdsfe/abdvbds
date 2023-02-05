@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 import numpy as np
-st.set_option('deprecation.showPyplotGlobalUse', False)
+
 # Function to generate random integer for credit score
 def random_credit_score():
     return random.randint(300, 850)
@@ -63,6 +63,7 @@ df_bank_risk = pd.DataFrame(bank_risk)
 
 import streamlit as st
 import matplotlib.pyplot as plt
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title("Bank Risk Dataset")
 st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
