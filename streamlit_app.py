@@ -76,28 +76,21 @@ if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
     st.pyplot()
     
     
+import streamlit as st
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
+	st.title("Bank Risk Heatmap")
 
-# Compute the correlation matrix
-corr = df_bank_risk.corr()
+	# Load the dataset
+	df_bank_risk = pd.read_csv('bank_risk.csv')
 
-# Generate a mask for the upper triangle
-mask = np.zeros_like(corr, dtype=np.bool)
-mask[np.triu_indices_from(mask)] = True
+	# Calculate the correlation matrix
+	corr = df_bank_risk.corr()
 
-# Set up the matplotlib figure
-f, ax = plt.subplots(figsize=(11, 9))
+	# Create a heatmap using Seaborn
+	sns.heatmap(corr, annot=True, cmap='coolwarm')
 
-# Generate a custom diverging colormap
-cmap = sns.diverging_palette(220, 10, as_cmap=True)
-
-# Draw the heatmap with the mask and correct aspect ratio
-sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
-            square=True, linewidths=.5, cbar_kws={"shrink": .5})
-
-# Add the title
-plt.title("Correlation Heatmap")
-
-# Show the plot
-plt.show()    
+	# Show the plot
+	st.pyplot()  
