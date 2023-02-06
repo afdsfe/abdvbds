@@ -91,7 +91,7 @@ if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
 	st.title("Bank Risk Heatmap")
 
 	# Load the dataset
-	df_bank_risk = pd.read_csv('bank_risk.csv')
+	#df_bank_risk = pd.read_csv('bank_risk.csv')
 
 	# Calculate the correlation matrix
 	corr = df_bank_risk.corr()
