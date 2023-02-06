@@ -78,12 +78,96 @@ selected_page = st.sidebar.selectbox("Select a page", menu)
 # Create separate functions for each page
 def page_1():
     st.write("This is page 1")
+    st.title("Bank Risk Dataset")
+    st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
+
+    st.dataframe(df_bank_risk)
+
+    if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
+        plt.scatter(df_bank_risk['Interest_Rate'], df_bank_risk['Credit_Score'])
+        plt.xlabel("Interest_Rate")
+        plt.ylabel("Credit_Score")
+        st.pyplot()
 
 def page_2():
     st.write("This is page 2")
+    st.title("Bank Risk EDA")
 
+    # Load the dataset
+    
+    
+    # Show the first 5 rows of the dataset
+    st.write("First 5 rows of the dataset:")
+    st.write(df_bank_risk.head())
+    
+    # Show the descriptive statistics for the numerical variables
+    st.write("Descriptive statistics for numerical variables:")
+    st.write(df_bank_risk.describe())
+    
+    # Plot the distribution of the credit scores
+    st.write("Distribution of credit scores:")
+    sns.distplot(df_bank_risk['Credit_Score'])
+    st.pyplot()
+    
+    # Plot the distribution of the loan amounts
+    st.write("Distribution of loan amounts:")
+    sns.distplot(df_bank_risk['Loan_Amount'])
+    st.pyplot()
+    
+    # Show the countplot for the loan purpose variable
+    st.write("Countplot for loan purpose:")
+    sns.countplot(x='Loan_Purpose', data=df_bank_risk)
+    st.pyplot()
+    
+    # Show the countplot for the employment status variable
+    st.write("Countplot for employment status:")
+    sns.countplot(x='Employment_Status', data=df_bank_risk)
+    st.pyplot()
+    
+    # Show the countplot for the loan status variable
+    st.write("Countplot for loan status:")
+    sns.countplot(x='Loan_Status', data=df_bank_risk)
+    st.pyplot()
+    
+    # Calculate the correlation matrix
+    corr = df_bank_risk.corr()
+    
+    # Create a heatmap using Seaborn
+    st.write("Correlation heatmap:")
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
+    st.pyplot()
+    
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import streamlit as st
+import time
+import networkx as nx
 def page_3():
     st.write("This is page 3")
+
+    
+    st.title("Data Flow Diagram")
+    
+    G = nx.DiGraph()
+    
+    G.add_node("Data Source")
+    G.add_node("Data Cleaning")
+    G.add_node("Data Transformation")
+    G.add_node("Data Analysis")
+    G.add_node("Data Visualization")
+    
+    G.add_edge("Data Source", "Data Cleaning")
+    G.add_edge("Data Cleaning", "Data Transformation")
+    G.add_edge("Data Transformation", "Data Analysis")
+    G.add_edge("Data Analysis", "Data Visualization")
+    
+    pos = nx.spring_layout(G)
+    
+    nx.draw(G, pos, with_labels=True)
+    
+    st.pyplot()
+
+
 
 # Use a dictionary to map the menu selection to the corresponding page function
 pages = {"Page 1": page_1,
@@ -94,16 +178,7 @@ pages = {"Page 1": page_1,
 pages[selected_page]()
     
 
-# st.title("Bank Risk Dataset")
-# st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
 
-# st.dataframe(df_bank_risk)
-
-# if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
-    # plt.scatter(df_bank_risk['Interest_Rate'], df_bank_risk['Credit_Score'])
-    # plt.xlabel("Interest_Rate")
-    # plt.ylabel("Credit_Score")
-    # st.pyplot()
     
     
 # import streamlit as st
@@ -128,48 +203,3 @@ pages[selected_page]()
 
 
 
-st.title("Bank Risk EDA")
-
-# Load the dataset
-
-
-# Show the first 5 rows of the dataset
-st.write("First 5 rows of the dataset:")
-st.write(df_bank_risk.head())
-
-# Show the descriptive statistics for the numerical variables
-st.write("Descriptive statistics for numerical variables:")
-st.write(df_bank_risk.describe())
-
-# Plot the distribution of the credit scores
-st.write("Distribution of credit scores:")
-sns.distplot(df_bank_risk['Credit_Score'])
-st.pyplot()
-
-# Plot the distribution of the loan amounts
-st.write("Distribution of loan amounts:")
-sns.distplot(df_bank_risk['Loan_Amount'])
-st.pyplot()
-
-# Show the countplot for the loan purpose variable
-st.write("Countplot for loan purpose:")
-sns.countplot(x='Loan_Purpose', data=df_bank_risk)
-st.pyplot()
-
-# Show the countplot for the employment status variable
-st.write("Countplot for employment status:")
-sns.countplot(x='Employment_Status', data=df_bank_risk)
-st.pyplot()
-
-# Show the countplot for the loan status variable
-st.write("Countplot for loan status:")
-sns.countplot(x='Loan_Status', data=df_bank_risk)
-st.pyplot()
-
-# Calculate the correlation matrix
-corr = df_bank_risk.corr()
-
-# Create a heatmap using Seaborn
-st.write("Correlation heatmap:")
-sns.heatmap(corr, annot=True, cmap='coolwarm')
-st.pyplot()
