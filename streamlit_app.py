@@ -2,6 +2,14 @@ import pandas as pd
 import random
 import numpy as np
 
+import streamlit as st
+import matplotlib.pyplot as plt
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+st.set_option('deprecation.showPyplotGlobalUse', False) 
+
 # Function to generate random integer for credit score
 def random_credit_score():
     return random.randint(300, 850)
@@ -61,8 +69,7 @@ bank_risk = {'Credit_Score': credit_scores,
 df_bank_risk = pd.DataFrame(bank_risk)
 
 
-import streamlit as st
-import matplotlib.pyplot as plt
+
 
 st.title("Bank Risk Dataset")
 st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
@@ -96,10 +103,7 @@ if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
 	st.pyplot()  
 
 
-import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+
 
 st.title("Bank Risk EDA")
 
