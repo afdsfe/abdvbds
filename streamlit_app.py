@@ -63,7 +63,6 @@ df_bank_risk = pd.DataFrame(bank_risk)
 
 import streamlit as st
 import matplotlib.pyplot as plt
-st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title("Bank Risk Dataset")
 st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
@@ -85,7 +84,8 @@ if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
 	st.title("Bank Risk Heatmap")
 
 	# Load the dataset
-	
+	df_bank_risk = pd.read_csv('bank_risk.csv')
+
 	# Calculate the correlation matrix
 	corr = df_bank_risk.corr()
 
@@ -94,3 +94,55 @@ if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
 
 	# Show the plot
 	st.pyplot()  
+
+
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+st.title("Bank Risk EDA")
+
+# Load the dataset
+
+
+# Show the first 5 rows of the dataset
+st.write("First 5 rows of the dataset:")
+st.write(df_bank_risk.head())
+
+# Show the descriptive statistics for the numerical variables
+st.write("Descriptive statistics for numerical variables:")
+st.write(df_bank_risk.describe())
+
+# Plot the distribution of the credit scores
+st.write("Distribution of credit scores:")
+sns.distplot(df_bank_risk['Credit_Score'])
+st.pyplot()
+
+# Plot the distribution of the loan amounts
+st.write("Distribution of loan amounts:")
+sns.distplot(df_bank_risk['Loan_Amount'])
+st.pyplot()
+
+# Show the countplot for the loan purpose variable
+st.write("Countplot for loan purpose:")
+sns.countplot(x='Loan_Purpose', data=df_bank_risk)
+st.pyplot()
+
+# Show the countplot for the employment status variable
+st.write("Countplot for employment status:")
+sns.countplot(x='Employment_Status', data=df_bank_risk)
+st.pyplot()
+
+# Show the countplot for the loan status variable
+st.write("Countplot for loan status:")
+sns.countplot(x='Loan_Status', data=df_bank_risk)
+st.pyplot()
+
+# Calculate the correlation matrix
+corr = df_bank_risk.corr()
+
+# Create a heatmap using Seaborn
+st.write("Correlation heatmap:")
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+st.pyplot()
