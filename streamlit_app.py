@@ -72,7 +72,7 @@ df_bank_risk = pd.DataFrame(bank_risk)
 st.sidebar.title("Navigation")
 
 # Create a menu selection to navigate between pages
-menu = ["Page 1", "Page 2", "Page 3"]
+menu = ["Page 1", "Page 2", "Page 3","Page 4"]
 selected_page = st.sidebar.selectbox("Select a page", menu)
 
 # Create separate functions for each page
@@ -166,13 +166,50 @@ def page_3():
     nx.draw(G, pos, with_labels=True)
     
     st.pyplot()
+import pandas as pd
+import random
+import datetime
 
+def page_4():
+    st.write("This is page 3")
 
+    
+    # Create a dataset for cohort analysis
+    data = {'User_ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            'Signup_Date': ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10'],
+            'Order_Date': ['2020-01-02', '2020-01-03', '2020-01-05', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10', '2020-01-11', '2020-01-12', '2020-01-13']}
+    df = pd.DataFrame(data)
+    
+    # Save the dataset as a csv file
+    df.to_csv('cohort_analysis_data.csv', index=False)
+    
+    # Load the data into a dataframe
+    df = pd.read_csv('cohort_analysis_data.csv')
+    
+    # Convert the dates to datetime format
+    df['Signup_Date'] = pd.to_datetime(df['Signup_Date'])
+    df['Order_Date'] = pd.to_datetime(df['Order_Date'])
+    
+    # Calculate the cohort index and cohort period
+    df['CohortIndex'] = df.groupby(['Signup_Date'])['User_ID'].transform('nunique')
+    df['CohortPeriod'] = (df['Order_Date'] - df['Signup_Date']).dt.days + 1
+    
+    # Create a pivot table for the cohort analysis
+    cohort_analysis = df.pivot_table(index='Signup_Date', columns='CohortPeriod', values='User_ID', aggfunc='count')
+    
+    # Fill the missing values with 0
+    cohort_analysis = cohort_analysis.fillna(0)
+    
+    # Create a heatmap to visualize the cohort analysis
+    st.write('Cohort Analysis Heatmap')
+    st.write(cohort_analysis.style.background_gradient(cmap='Blues'))
 
 # Use a dictionary to map the menu selection to the corresponding page function
 pages = {"Page 1": page_1,
          "Page 2": page_2,
-         "Page 3": page_3}
+         "Page 3": page_3,
+         "Page 4": page_4
+         }
 
 # Call the selected page function
 pages[selected_page]()
