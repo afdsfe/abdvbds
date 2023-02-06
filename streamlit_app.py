@@ -68,39 +68,62 @@ bank_risk = {'Credit_Score': credit_scores,
 
 df_bank_risk = pd.DataFrame(bank_risk)
 
+# Add a title to the sidebar
+st.sidebar.title("Navigation")
 
+# Create a menu selection to navigate between pages
+menu = ["Page 1", "Page 2", "Page 3"]
+selected_page = st.sidebar.selectbox("Select a page", menu)
 
+# Create separate functions for each page
+def page_1():
+    st.write("This is page 1")
 
-st.title("Bank Risk Dataset")
-st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
+def page_2():
+    st.write("This is page 2")
 
-st.dataframe(df_bank_risk)
+def page_3():
+    st.write("This is page 3")
 
-if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
-    plt.scatter(df_bank_risk['Interest_Rate'], df_bank_risk['Credit_Score'])
-    plt.xlabel("Interest_Rate")
-    plt.ylabel("Credit_Score")
-    st.pyplot()
+# Use a dictionary to map the menu selection to the corresponding page function
+pages = {"Page 1": page_1,
+         "Page 2": page_2,
+         "Page 3": page_3}
+
+# Call the selected page function
+pages[selected_page]()
+    
+
+# st.title("Bank Risk Dataset")
+# st.write("A sample of 1000 loan applications with various attributes including credit score, loan purpose, annual income, employment status, loan status, loan amount, loan date, and interest rate.")
+
+# st.dataframe(df_bank_risk)
+
+# if st.checkbox("Show Scatter Plot of Interest_Rate and Credit_Score"):
+    # plt.scatter(df_bank_risk['Interest_Rate'], df_bank_risk['Credit_Score'])
+    # plt.xlabel("Interest_Rate")
+    # plt.ylabel("Credit_Score")
+    # st.pyplot()
     
     
-import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
-	st.title("Bank Risk Heatmap")
+# import streamlit as st
+# import pandas as pd
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# if st.checkbox("Show Corr of Interest_Rate and Credit_Score"):
+	# st.title("Bank Risk Heatmap")
 
-	# Load the dataset
-	#df_bank_risk = pd.read_csv('bank_risk.csv')
+	# # Load the dataset
+	# #df_bank_risk = pd.read_csv('bank_risk.csv')
 
-	# Calculate the correlation matrix
-	corr = df_bank_risk.corr()
+	# # Calculate the correlation matrix
+	# corr = df_bank_risk.corr()
 
-	# Create a heatmap using Seaborn
-	sns.heatmap(corr, annot=True, cmap='coolwarm')
+	# # Create a heatmap using Seaborn
+	# sns.heatmap(corr, annot=True, cmap='coolwarm')
 
-	# Show the plot
-	st.pyplot()  
+	# # Show the plot
+	# st.pyplot()  
 
 
 
