@@ -169,40 +169,97 @@ def page_3():
 import pandas as pd
 import random
 import datetime
-
+import csv
+import random
+import datetime
 def page_4():
     st.write("This is page 3")
+    import sqlite3
+    # from faker import Faker
+    # fake = Faker()
 
-    
-    # Create a dataset for cohort analysis
-    data = {'User_ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'Signup_Date': ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10'],
-            'Order_Date': ['2020-01-02', '2020-01-03', '2020-01-05', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10', '2020-01-11', '2020-01-12', '2020-01-13']}
-    df = pd.DataFrame(data)
-    
-    # Save the dataset as a csv file
-    df.to_csv('cohort_analysis_data.csv', index=False)
-    
-    # Load the data into a dataframe
-    df = pd.read_csv('cohort_analysis_data.csv')
-    
-    # Convert the dates to datetime format
-    df['Signup_Date'] = pd.to_datetime(df['Signup_Date'])
-    df['Order_Date'] = pd.to_datetime(df['Order_Date'])
-    
-    # Calculate the cohort index and cohort period
-    df['CohortIndex'] = df.groupby(['Signup_Date'])['User_ID'].transform('nunique')
-    df['CohortPeriod'] = (df['Order_Date'] - df['Signup_Date']).dt.days + 1
-    
-    # Create a pivot table for the cohort analysis
-    cohort_analysis = df.pivot_table(index='Signup_Date', columns='CohortPeriod', values='User_ID', aggfunc='count')
-    
-    # Fill the missing values with 0
-    cohort_analysis = cohort_analysis.fillna(0)
-    
-    # Create a heatmap to visualize the cohort analysis
-    st.write('Cohort Analysis Heatmap')
-    st.write(cohort_analysis.style.background_gradient(cmap='Blues'))
+    # Connect to a SQLite database
+    conn = sqlite3.connect("./AdventureWorks.db")
+    cursor = conn.cursor()
+
+    # # Create the customers table
+    # cursor.execute("""
+    # CREATE TABLE IF NOT EXISTS customers (
+        # customer_id INTEGER PRIMARY KEY,
+        # customer_name TEXT,
+        # customer_address TEXT,
+        # customer_email TEXT,
+        # customer_phone_number TEXT
+    # )
+    # """)
+
+    # # Create the products table
+    # cursor.execute("""
+    # CREATE TABLE IF NOT EXISTS products (
+        # product_id INTEGER PRIMARY KEY,
+        # product_name TEXT,
+        # product_description TEXT,
+        # product_price REAL
+    # )
+    # """)
+
+    # # Create the orders table
+    # cursor.execute("""
+    # CREATE TABLE IF NOT EXISTS orders (
+        # order_id INTEGER PRIMARY KEY,
+        # order_date TEXT,
+        # customer_id INTEGER,
+        # product_id INTEGER,
+        # order_quantity INTEGER,
+        # FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+        # FOREIGN KEY (product_id) REFERENCES products(product_id)
+    # )
+    # """)
+
+    # # Define the number of fake records to generate
+    # customers_records = 100000
+    # products_records = 100000
+    # orders_records = 100000
+
+    # # Generate fake customers data and insert into the database
+    # for i in range(customers_records):
+        # customer_id = i + 1
+        # customer_name = fake.name()
+        # customer_address = fake.address()
+        # customer_email = fake.email()
+        # customer_phone_number = fake.phone_number()
+        
+        # cursor.execute("""
+        # INSERT INTO customers (customer_id, customer_name, customer_address, customer_email, customer_phone_number)
+        # VALUES (?, ?, ?, ?, ?)
+        # """, (customer_id, customer_name, customer_address, customer_email, customer_phone_number))
+
+    # # Generate fake products data and insert into the database
+    # for i in range(products_records):
+        # product_id = i + 1
+        # product_name = fake.word()
+        # product_description = fake.sentence()
+        # product_price = fake.random_int(min=10, max=1000, step=1)
+        
+        # cursor.execute("""
+        # INSERT INTO products (product_id, product_name, product_description, product_price)
+        # VALUES (?, ?, ?, ?)
+        # """, (product_id, product_name, product_description, product_price))
+
+    # # Generate fake orders data and insert into the database
+    # for i in range(orders_records):
+        # order_id = i + 1
+        # order_date = fake.date_this_decade()
+        # customer_id = fake.random_int(min=1, max=customers_records, step=1)
+        # product_id = fake.random_int(min=1, max=products_records, step=1)
+        # order_quantity = fake.random_int(min=1, max=100, step=1)
+        # cursor.execute("""
+    # INSERT INTO orders (order_id, order_date, customer_id, product_id, order_quantity)
+    # VALUES (?, ?, ?, ?, ?)
+    # """, (order_id, order_date, customer_id, product_id, order_quantity))
+    st.dataframe(pd.read_sql('select * from orders',con=conn))
+    conn.commit()
+    conn.close()   
 
 # Use a dictionary to map the menu selection to the corresponding page function
 pages = {"Page 1": page_1,
