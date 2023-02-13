@@ -3,7 +3,7 @@ import streamlit as st
 def main_content():
     """Create the main content area of the website."""
 
-    st.write("Data Analysis Projects")
+    #st.write("Data Analysis Projects")
     st.markdown(
         """
         ### Welcome to the Data Analysis Projects section!
