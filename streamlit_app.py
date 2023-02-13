@@ -2,7 +2,9 @@ import streamlit as st
 from PIL import Image
 def header():
     """Create a header for the website."""
-    logo_image = st.image("./bear.jpg", use_column_width=False, width=100)
+    image = Image.open("./bear.jpg")
+    image = image.resize((100, 50))
+    logo_image = st.image(image)
     st.header("Header")
 
 def footer():
