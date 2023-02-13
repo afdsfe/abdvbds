@@ -1,43 +1,18 @@
 import streamlit as st
-from PIL import Image
-def header():
-    """Create a header for the website."""
-    image = Image.open("./bear.jpg")
-    image = image.resize((100, 50))
-    logo_image = st.image(image)
-    st.header("Header")
+st.set_option('deprecation.showPyplotGlobalUse', False)
+from MainPage import *  
+from page1 import *
+from page2 import *
+from page3 import *
 
-def footer():
-    """Create a footer for the website."""
-    st.write("Footer")
 
-def main_content():
-    """Create the main content area of the website."""
-    st.write("Main Content")
+page = st.sidebar.selectbox("Select a page", ["Main Page", "Project 1: Predicting Sales Trends", "Project 2: Exploring Customer Segmentation", "Project 3: Improving Supply Chain Efficiency"])
+if page == "Main Page":
+    main_content()
+elif page == "Project 1: Predicting Sales Trends":
+    page1()
+elif page == "Project 2: Exploring Customer Segmentation":
+    page2()
+elif page == "Project 3: Improving Supply Chain Efficiency":
+    page3()
 
-from page1 import page1
-
-def page2():
-    """Create the second page of the website."""
-    st.write("Page 2")
-
-def page3():
-    """Create the third page of the website."""
-    st.write("Page 3")
-
-def run_app():
-    """Run the Streamlit app."""
-    header()
-    page = st.sidebar.selectbox("Select a page", ["Main Content", "Page 1", "Page 2", "Page 3"])
-    if page == "Main Content":
-        main_content()
-    elif page == "Page 1":
-        page1()
-    elif page == "Page 2":
-        page2()
-    elif page == "Page 3":
-        page3()
-    footer()
-
-if __name__ == "__main__":
-    run_app()
