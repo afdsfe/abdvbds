@@ -3,3 +3,4 @@ seaborn
 animation
 numpy
 scikit-learn
+Faker
