@@ -1,18 +1,21 @@
 import streamlit as st
-st.set_option('deprecation.showPyplotGlobalUse', False)
-from MainPage import *  
-from page1 import *
-from page2 import *
-from page3 import *
 
+def main():
+    menu = ["Page 1", "Page 2", "Page 3"]
+    page = "Page 1"
 
-page = st.sidebar.selectbox("Select a page", ["Main Page", "Project 1: Predicting Sales Trends", "Project 2: Exploring Customer Segmentation", "Project 3: Improving Supply Chain Efficiency"])
-if page == "Main Page":
-    main_content()
-elif page == "Project 1: Predicting Sales Trends":
-    page1()
-elif page == "Project 2: Exploring Customer Segmentation":
-    page2()
-elif page == "Project 3: Improving Supply Chain Efficiency":
-    page3()
+    st.sidebar.header("Navigation")
+    for m in menu:
+        if st.sidebar.button(m):
+            page = m
 
+    st.header("Content")
+    if page == "Page 1":
+        st.write("This is Page 1")
+    elif page == "Page 2":
+        st.write("This is Page 2")
+    elif page == "Page 3":
+        st.write("This is Page 3")
+
+if __name__ == "__main__":
+    main()
